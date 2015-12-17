@@ -135,6 +135,7 @@ a.desc:after {
 .header {
   padding-right: 15px;
   padding-left: 15px;
+  padding-top: 20px;
   margin: 5px auto 10px auto;
   z-index: 1000;
 }

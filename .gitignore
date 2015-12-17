@@ -26,10 +26,13 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
-/web/assets
-/web/css
-/web/images
-/web/uploads
-/web/content
+/public/assets
+# /public/css
+/public/images
+/public/uploads
+/public/content
 
 composer.lock
+
+*.sublime-project
+*.sublime-workspace

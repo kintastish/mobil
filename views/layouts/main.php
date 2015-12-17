@@ -26,18 +26,30 @@ AppAsset::register($this);
 
 <?php $this->beginBody() ?>
     <div class="wrap">
-<!--         <div class="row contacts">
-            <div class="col-md-4 col-md-offset-8">
-                <p><strong><span class="text-danger">Тел.:</span> <span class="text-primary">(8464) 34-22-04</span></strong></p>
-            </div>
-        </div>
- -->
         <div class="header">
-            <span class="logo"><a href="/"><img src="/css/logo.png"><span class="brand">Мобиль</span></a></span>
-            <span class="contacts">
-                <p><strong><span class="text-danger">Тел.:</span> <span class="text-primary">(8464) 34-22-04</span></strong></p>
-                <p><strong><span class="text-danger">E-mail:</span> <span class="text-primary"><a href="mailto:mail@mtm10.ru">mail@mtm10.ru</a></span></strong></p>
-            </span>
+            <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="logo"><a href="/"><img src="/css/logo.jpg"><span class="brand">Мобиль</span></a></span>
+                </div>
+                <div class="col-md-3">
+                    <div>Производство</div>
+                    <ul>
+                        <li>автокомпонентов</li>
+                        <li>штампов и пресс-форм</li>
+                        <li>нестандартного оборудования</li>
+                        <li>мини-тракторов</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <p><strong><span class="text-danger">Тел./факс</span> <span class="text-primary"> (8464) 34-22-04, 34-57-79</span></strong></p>
+                    <p><strong><span class="text-danger">E-mail:</span> <span class="text-primary"><a href="mailto:mobil.syzran@yandex.ru">mobil.syzran@yandex.ru</a></span></strong></p>
+                </div>
+                <div class="col-md-3">
+                    <img src="/css/16949.jpg">
+                </div>
+            </div>
+            </div>
         </div>
         <nav id="w0" class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
