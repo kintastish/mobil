@@ -1,0 +1,54 @@
+<?php //VAR_DEF
+    $content_vars = [
+        'slideshow' => 'Слайд-шоу',
+    ];
+    $param_vars = [
+        'title' => 'Заголовок страницы',
+        'keywords' => 'Ключевые слова (для поисковиков)',
+        'description' => 'Описание (для поисковиков)',
+        'album_id' => 'ID альбома для слайд-шоу',
+    ];
+// ?>
+<?php //VAR_VAL
+    $title = 'Мини-трактор МТМ-10';
+    $album_id = 51;
+    $description = 'Описание';
+    $keywords = 'Ключевые слова';
+// ?>
+<?php //VAR_IMPLEMENT
+    $this->title = $title;
+    //
+    $album = \app\models\Categories::findOne(['id' => $album_id, 'handler' => 'album']);
+    if ($album == null) {
+        $slideshow = '#Альбом_не_найден';
+    }
+    else {
+        $img_list = [];
+        foreach ($album->resources as $img) {
+            $img->attachBehavior('ImageBehavior', [
+                'class' => \app\components\ImageBehavior::className()
+            ]);
+            $img_list[] = [
+                'title' => $img->title,
+                'href' => $img->imageUrl,
+                'thumbnail' => $img->thumbnailUrl,
+            ];
+        }
+        $slideshow = \app\widgets\blueimp\BlueimpGallery::widget(['items'=>$img_list, 'mode'=>2]);
+    }
+// ?>
+<div class="site-index">
+    <div class="body-content">
+        <h2>Мини-трактор МТМ-10</h2>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2"><?= $slideshow ?></div>
+        </div>
+        <p>МТМ-10 это недорогой универсальный малогабаритный трактор тягового класса 0,2 тс с задней ведущей осью,
+            разработанный и производимый на территории Самарской области. При разработке данной машины был сделан 
+            упор на применение отечественных автокомпонентов и комплектующих, что позволило получить высокую 
+            ремонтопригодность и низкую стоимость запасных частей.</p>
+        <p>Наш малогабаритный трактор полностью адаптирован к навесным и прицепным агрегатам, которые мы предлагаем
+        своим клиентам, что позволяет выполнять широкий спектр работ в фермерских и личных подсобных хозяйствах,
+        а также в системе ЖКХ и на малых производственных площадках различных отраслей промышленности.</p>
+    </div>
+</div>

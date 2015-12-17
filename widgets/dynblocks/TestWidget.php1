@@ -1,0 +1,18 @@
+<?php 
+
+namespace app\widgets\dynblocks;
+
+use yii\base\Widget;
+
+class TestWidget extends DynamicBlock
+{
+
+	public static function getInf1o()
+	{
+		return [
+			'name' => 'Тестовый блок',
+			'description' => 'Позволяет генерировать список ссылок на основе имеющихся страниц сайта. '.
+							 'Подходит для вывода ленты новостей, блока навигации по разделу и т.д.'
+		];
+	}
+}

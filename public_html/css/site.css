@@ -1,0 +1,179 @@
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 50px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+/* mobil */
+
+.navbar-default {
+    background-color: #22297A;
+}
+
+.navbar-default .navbar-brand {
+  color: #DDD;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #FFF;
+  background-color: transparent;
+}
+
+.navbar-default .navbar-text {
+  color: #DDD;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #DDD;
+  outline: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #FFF;
+  background-color: transparent;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #FFF;
+  background-color: #191970;
+}
+
+.container > .navbar-header {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.header {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 5px auto 10px auto;
+  z-index: 1000;
+}
+@media (min-width: 768px) {
+  .header {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .header {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .header {
+    width: 1170px;
+  }
+}
+
+.header .logo img {
+    height: 75px;
+    width: 75px;
+}
+
+.header .logo .brand {
+    color: #22297A;
+    font-weight: 800;
+    font-family: Times New Roman;
+    font-size: 24pt;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.header .logo a:hover, .header .logo a:focus {
+    text-decoration: none;
+    outline: none;
+}
+.contacts {
+    float: right !important;
+    margin-right: -15px;
+    margin-top: 5px;
+}
