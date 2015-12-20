@@ -26,11 +26,11 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
-/public/assets
+/public_html/assets
 # /public/css
-/public/images
-/public/uploads
-/public/content
+/public_html/images
+/public_html/uploads
+/public_html/content
 
 composer.lock
 

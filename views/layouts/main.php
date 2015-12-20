@@ -30,7 +30,7 @@ AppAsset::register($this);
             <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <span class="logo"><a href="/"><img src="/css/logo.jpg"><span class="brand">Мобиль</span></a></span>
+                    <span class="logo"><a href="/"><img src="css/logo.jpg"><span class="brand">Мобиль</span></a></span>
                 </div>
                 <div class="col-md-3">
                     <div>Производство</div>
@@ -46,16 +46,73 @@ AppAsset::register($this);
                     <p><strong><span class="text-danger">E-mail:</span> <span class="text-primary"><a href="mailto:mobil.syzran@yandex.ru">mobil.syzran@yandex.ru</a></span></strong></p>
                 </div>
                 <div class="col-md-3">
-                    <img src="/css/16949.jpg">
+                    <img src="css/16949.jpg">
                 </div>
             </div>
             </div>
         </div>
-        <nav id="w0" class="navbar navbar-default navbar-static-top" role="navigation">
+        <nav>
             <div class="container">
-                <div id="w0-collapse" class="collapse navbar-collapse">
-                    {*mainmenu*}
-                </div>
+                
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" ref="">Главная</button>
+                        <button type="button" class="btn btn-default" href="">Производство</button>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="">Продукция</button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-default" href="">О компании</a>
+                        <button type="button" class="btn btn-default" href="">Вакансии</a>
+                        <button type="button" class="btn btn-default" href="">Контакты</a>
+                    </div>
+                
+            </div>
+            <div class="container">
+                
+                <div class="btn-group btn-group-justified" role="group">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-default">Label</a>
+                            <?php
+                                echo yii\bootstrap\Dropdown::widget([
+                                    'items' => [
+                                        ['label' => 'DropdownA', 'url' => '/'],
+                                        ['label' => 'DropdownB', 'url' => '#'],
+                                    ],
+                                ]);
+                            ?>
+                        </div>             
+                    </div>             
+                    <div class="btn-group" role="group">
+                        <div class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-default">Label 2</a>
+                            <?php
+                                echo yii\bootstrap\Dropdown::widget([
+                                    'items' => [
+                                        ['label' => 'DropdownA', 'url' => '/'],
+                                        ['label' => 'DropdownB', 'url' => '#'],
+                                    ],
+                                ]);
+                            ?>
+                        </div>             
+                    </div>             
+                    <div class="btn-group" role="group">
+                        <div class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-default">Label 3</a>
+                            <?php
+                                echo yii\bootstrap\Dropdown::widget([
+                                    'items' => [
+                                        ['label' => 'DropdownA', 'url' => '/'],
+                                        ['label' => 'DropdownB', 'url' => '#'],
+                                    ],
+                                ]);
+                            ?>
+                        </div>             
+                    </div>             
+                </div>             
             </div>
         </nav>
         <div class="container">
