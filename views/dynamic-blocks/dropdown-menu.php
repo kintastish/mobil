@@ -9,33 +9,6 @@ use app\widgets\bootstrap\Collapse;
 use yii\bootstrap\Modal;
 ?>
 
-<?php 
-$buttons = 
-    '<a href="#" class="btn btn-sm" data-op="up" title="Передвинуть вверх">'
-        .'<i class="glyphicon glyphicon-arrow-up text-primary"></i>'
-    .'</a>'
-    .'<a href="#" class="btn btn-sm" data-op="dn" title="Передвинуть вниз">'
-        .'<i class="glyphicon glyphicon-arrow-down text-primary"></i>'
-    .'</a>'
-    .'<a href="#" class="btn btn-sm" data-op="del" title="Удалить">'
-        .'<i class="glyphicon glyphicon-remove text-warning"></i>'
-    .'</a>';
-$menu_item_tpl =
-    '<div class="row">'
-        .'<div class="col-md-8">{title} '
-            .'<a href="#w0" class="add-link-btn" title="Добавить пункт в подменю" data-toggle="modal" data-menulevel="2">'
-                .'<i class="glyphicon glyphicon-plus-sign text-success"></i>'
-            .'</a>'
-        .'</div>'
-        .'<div class="col-md-4">'.$buttons.'</div>'
-        .'<input type="hidden" name="title[]" value="{title}">'
-        .'<input type="hidden" name="url[]" value="{url}">'
-    .'</div>';
-$submenu_item_tpl = 
-    '<div class="col-md-11 col-offset-1">'
-        .'{title}'
-    .'</div>'
-?>
 <div class="dynblock-menu">
     <?php echo Html::beginForm(); ?>
     
@@ -105,14 +78,53 @@ Modal::begin([
 <?php Modal::end(); ?>
 
 <?php 
+$buttons = 
+    '<a href="#" class="btn btn-sm" data-op="up" title="Передвинуть вверх">'
+        .'<i class="glyphicon glyphicon-arrow-up text-primary"></i>'
+    .'</a>'
+    .'<a href="#" class="btn btn-sm" data-op="dn" title="Передвинуть вниз">'
+        .'<i class="glyphicon glyphicon-arrow-down text-primary"></i>'
+    .'</a>'
+    .'<a href="#" class="btn btn-sm" data-op="del" title="Удалить">'
+        .'<i class="glyphicon glyphicon-remove text-warning"></i>'
+    .'</a>';
+$menu_item_tpl =
+    '<div class="row">'
+        .'<div class="col-md-8">{title} '
+            .'<a href="#w0" class="add-link-btn" title="Добавить пункт в подменю" data-toggle="modal" data-menulevel="2">'
+                .'<i class="glyphicon glyphicon-plus-sign text-success"></i>'
+            .'</a>'
+            .'<input type="hidden" name="title[]" value="{title}">'
+            .'<input type="hidden" name="url[]" value="{url}">'
+            .'<input type="hidden" name="id[]" value="{id}">'
+        .'</div>'
+        .'<div class="col-md-4">'.$buttons.'</div>'
+        .'<div class="submenu-items"></div>'
+    .'</div>';
+$submenu_item_tpl = 
+    '<div class="row">'
+        .'<div class="col-md-7 col-md-offset-1">'
+            .'{title}'
+            .'<input type="hidden" name="title[]" value="{title}">'
+            .'<input type="hidden" name="url[]" value="{url}">'
+            .'<input type="hidden" name="parent[]" value="{id}">'
+        .'</div>'
+        .'<div class="col-md-4">'.$buttons.'</div>'
+    .'</div>';
+
 $linkExplorer = Url::to(['explore/expand']);
 $jsLinks = <<<jsLinks
 var menuInsertionPoint;
+var lastItemId = 0;
 $('#w0').on('show.bs.modal', function (e) {
-    var menulevel = $(event.relatedTarget).data('whatever');
+    var menulevel = $(e.relatedTarget).data('menulevel');
     if (menulevel == "1") {
         menuInsertionPoint = $('#menu-items');
     }
+    else {
+        menuInsertionPoint = $(e.relatedTarget).parent().parent().children('div.submenu-items');
+    }
+    $('#w0').data("menulevel", menulevel);
     refreshForm();
 });
 $('#res-list').bind('dblclick', function(){
@@ -145,16 +157,23 @@ $('body').on('click', '#route>a', function(ev){
 
 $('#modal-save').on('click', function(ev){
     $('#w0').modal('hide');
+    var menulevel = $('#w0').data('menulevel');
     var tpl = '$menu_item_tpl';
+    var id = ++lastItemId;
+    if (menulevel == "2") {
+        tpl = '$submenu_item_tpl';
+        id = $(menuInsertionPoint).parent().children().first().children().last().val();
+    }
     var title = $('#link-title').val();
     var url = $('#link-url').val();
-    var row = $(tpl.replace(/{title}/g, title).replace('{url}', url));
-    $('#menu-items').append(row);
+    var row = $(tpl.replace(/{title}/g, title).replace('{url}', url).replace('{id}', id));
+    $(menuInsertionPoint).append(row);
 })
 
 $('body').on('click', 'a[data-op]', function(ev){
     var item = $(this).parent().parent();
-    var item_count = $('#menu-items>div.row').length;
+    //var item_count = $('#menu-items>div.row').length;
+    var item_count = $(item).siblings().length + 1;
     var op = $(this).attr('data-op');
     if (item.length == 1) {
         switch( op ) {
