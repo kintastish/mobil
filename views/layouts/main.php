@@ -70,51 +70,8 @@ AppAsset::register($this);
                     </div>
                 
             </div>
-            <div class="container">
-                
-                <div class="btn-group btn-group-justified" role="group">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-default">Label</a>
-                            <?php
-                                echo yii\bootstrap\Dropdown::widget([
-                                    'items' => [
-                                        ['label' => 'DropdownA', 'url' => '/'],
-                                        ['label' => 'DropdownB', 'url' => '#'],
-                                    ],
-                                ]);
-                            ?>
-                        </div>             
-                    </div>             
-                    <div class="btn-group" role="group">
-                        <div class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-default">Label 2</a>
-                            <?php
-                                echo yii\bootstrap\Dropdown::widget([
-                                    'items' => [
-                                        ['label' => 'DropdownA', 'url' => '/'],
-                                        ['label' => 'DropdownB', 'url' => '#'],
-                                    ],
-                                ]);
-                            ?>
-                        </div>             
-                    </div>             
-                    <div class="btn-group" role="group">
-                        <div class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-default">Label 3</a>
-                            <?php
-                                echo yii\bootstrap\Dropdown::widget([
-                                    'items' => [
-                                        ['label' => 'DropdownA', 'url' => '/'],
-                                        ['label' => 'DropdownB', 'url' => '#'],
-                                    ],
-                                ]);
-                            ?>
-                        </div>             
-                    </div>             
-                </div>             
-            </div>
         </nav>
+        <div class="container">{*mainmenu*}</div>
         <div class="container">
             <div class="row">
                 <div class="col-md-1"></div>

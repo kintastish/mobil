@@ -105,7 +105,7 @@ class Categories extends \yii\db\ActiveRecord
         $rt = '';
         $parents = Categories::getHierarchy($this->id);
         foreach ($parents as $p) {
-            $rt = $p->alias.'/'.$rt;
+            $rt = ($p->alias !== '0' ? $p->alias.'/' : '').$rt;
         }
                 
         return $rt;
