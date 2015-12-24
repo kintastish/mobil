@@ -52,40 +52,8 @@ AppAsset::register($this);
             </div>
         </div>
         <nav>
-            <div class="container">
-                
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" ref="">Главная</button>
-                        <button type="button" class="btn btn-default" href="">Производство</button>
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="">Продукция</button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                            </ul>
-                        </div>
-                        <button type="button" class="btn btn-default" href="">О компании</a>
-                        <button type="button" class="btn btn-default" href="">Вакансии</a>
-                        <button type="button" class="btn btn-default" href="">Контакты</a>
-                    </div>
-                
-            </div>
+            <div class="container">{*dropdownmenu*}</div>
         </nav>
-        <div class="container">{*dropdownmenu*}</div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                <?php 
-                echo Breadcrumbs::widget([
-                    //'itemTemplate' => "<li><i>{link}</i></li>\n", // template for all links
-                    'links' => $this->params['breadcrumbs']
-                ]); ?>
-                    <?= $content ?>
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-        </div>
     </div>
 
     <footer class="footer">
