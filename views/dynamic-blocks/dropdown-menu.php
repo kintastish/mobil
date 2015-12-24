@@ -12,6 +12,26 @@ use yii\bootstrap\Modal;
 <div class="dynblock-menu">
     <?php echo Html::beginForm(); ?>
     
+    <?php $this->beginBlock('panel1'); ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Внешний вид</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <?= Html::activeLabel( $model, 'appearance') ?>
+                </div>
+                <div class="col-md-6">
+                    <?= Html::activeDropDownList( $model, 'appearance', [
+                        'nav-tabs' => 'Вкладки',
+                        'nav-pills' => 'Кнопки'
+                    ]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php $this->endBlock(); ?>
     <?php $this->beginBlock('panel2'); ?>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -29,8 +49,8 @@ use yii\bootstrap\Modal;
                         <div class="panel-body">
                             <div id="menu-items">
                             <?php
-                            foreach ($model->links as $ind => $v) {
-                                echo str_replace('{url}', $v['url'], str_replace('{title}', $v['title'], $menu_item_tpl));
+                            foreach ($model->items as $ind => $v) {
+                                //echo str_replace('{url}', $v['url'], str_replace('{title}', $v['title'], $menu_item_tpl));
                             }
                             ?>
                             </div>
@@ -42,6 +62,7 @@ use yii\bootstrap\Modal;
     </div>
     <?php $this->endBlock(); ?>
     <?php 
+        echo $this->blocks['panel1'];
         echo $this->blocks['panel2'];
     ?>
     <div class="form-group">
@@ -97,6 +118,7 @@ $menu_item_tpl =
             .'<input type="hidden" name="title[]" value="{title}">'
             .'<input type="hidden" name="url[]" value="{url}">'
             .'<input type="hidden" name="id[]" value="{id}">'
+            .'<input type="hidden" name="parent[]" value="0">'
         .'</div>'
         .'<div class="col-md-4">'.$buttons.'</div>'
         .'<div class="submenu-items"></div>'
@@ -107,6 +129,7 @@ $submenu_item_tpl =
             .'{title}'
             .'<input type="hidden" name="title[]" value="{title}">'
             .'<input type="hidden" name="url[]" value="{url}">'
+            .'<input type="hidden" name="id[]" value="0">'
             .'<input type="hidden" name="parent[]" value="{id}">'
         .'</div>'
         .'<div class="col-md-4">'.$buttons.'</div>'
@@ -162,7 +185,7 @@ $('#modal-save').on('click', function(ev){
     var id = ++lastItemId;
     if (menulevel == "2") {
         tpl = '$submenu_item_tpl';
-        id = $(menuInsertionPoint).parent().children().first().children().last().val();
+        id = $(menuInsertionPoint).parent().children().first().children('[name^=id]').last().val();
     }
     var title = $('#link-title').val();
     var url = $('#link-url').val();

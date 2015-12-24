@@ -71,7 +71,7 @@ AppAsset::register($this);
                 
             </div>
         </nav>
-        <div class="container">{*mainmenu*}</div>
+        <div class="container">{*dropdownmenu*}</div>
         <div class="container">
             <div class="row">
                 <div class="col-md-1"></div>

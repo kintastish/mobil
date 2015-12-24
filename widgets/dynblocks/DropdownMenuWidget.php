@@ -3,8 +3,7 @@
 namespace app\widgets\dynblocks;
 
 use Yii;
-use yii\helpers\Html;
-use app\models\Categories;
+use yii\bootstrap\Nav;
 
 class DropdownMenuWidget extends DynamicBlock
 {
@@ -13,7 +12,7 @@ class DropdownMenuWidget extends DynamicBlock
 		if ($this->blockId == null) {
 			throw new \yii\base\InvalidCallException('Отсутствует обязательный параметр $blockId');
 		}
-		return $this->_config['beginTemplate'].$this->buildItems().$this->_config['endTemplate'];
+		return $this->renderBlock();
 	}
 
 	public static function getInfo()
@@ -26,14 +25,12 @@ class DropdownMenuWidget extends DynamicBlock
 		];
 	}
 
-
-	private function buildItems()
+	private function renderBlock()
 	{
-		$tpl = $this->_config['itemTemplate'];
-		$s = '';
-		foreach ($this->_config['links'] as $l) {
-			$s .= str_replace(['{*label*}', '{*url*}'], [$l['title'], $l['url']], $tpl);
-		}
-		return $s;
+		return Nav::widget([
+			'items' => $this->_config['items'],
+			'options' => ['class' => $this->_config['appearance']],
+			'dropDownCaret' => false
+		]);
 	}
 }

@@ -13,14 +13,16 @@ class DropdownMenuWidgetModel extends DynamicBlockModel
     // public $itemTemplate;
     // public $endTemplate;
 
-    public $links;
+    public $items;
+    public $appearance;
 
     public function loadDefaults()
     {
         // $this->beginTemplate = '<ul>';
         // $this->itemTemplate = '<li><a href="{*url*}">{*label*}</a></li>';
         // $this->endTemplate = '</ul>';
-        $this->links = [];
+        $this->items = [];
+        $this->appearance = 1;
     }
 
 
@@ -30,7 +32,8 @@ class DropdownMenuWidgetModel extends DynamicBlockModel
             // 'beginTemplate' => 'Начало меню',
             // 'itemTemplate' => 'Элемент меню',
             // 'endTemplate' => 'Конец меню',
-            'links' => 'Ссылки',
+            'items' => 'Ссылки',
+            'appearance' => 'Внешний вид пунктов меню верхнего уровня'
         ];
     }
 
@@ -67,10 +70,20 @@ class DropdownMenuWidgetModel extends DynamicBlockModel
     public function load($data, $formName = null)
     {
         if (parent::load($data, $formName)) {
-            $this->links = [];
+            $this->items = [];
             for ($i=0; $i < count($data['title']); $i++) { 
-                $this->links[$i] = ['title' => $data['title'][$i], 'url' => $data['url'][$i] ];
+                if (intval($data['id'][$i]) != 0) {
+                    $id = intval($data['id'][$i]);
+                    $this->items[$id] = ['label' => $data['title'][$i], 'url' => $data['url'][$i] ];
+                }
+                elseif (intval($data['parent'][$i]) != 0) {
+                    $id = intval($data['parent'][$i]);
+                    $this->items[$id]['items'][] = ['label' => $data['title'][$i], 'url' => $data['url'][$i]];
+                    $this->items[$id]['url'] = '#';
+                }
             }
+            Yii::trace(VarDumper::dumpAsString($this->items));
+            Yii::trace(VarDumper::dumpAsString($data));
             return true;
         };
         return false;
