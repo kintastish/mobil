@@ -9,18 +9,11 @@ use yii\helpers\VarDumper;
 
 class DropdownMenuWidgetModel extends DynamicBlockModel
 {
-    // public $beginTemplate;
-    // public $itemTemplate;
-    // public $endTemplate;
-
     public $items;
     public $appearance;
 
     public function loadDefaults()
     {
-        // $this->beginTemplate = '<ul>';
-        // $this->itemTemplate = '<li><a href="{*url*}">{*label*}</a></li>';
-        // $this->endTemplate = '</ul>';
         $this->items = [];
         $this->appearance = 1;
     }
@@ -29,9 +22,6 @@ class DropdownMenuWidgetModel extends DynamicBlockModel
     public function attributeLabels()
     {
         return [
-            // 'beginTemplate' => 'Начало меню',
-            // 'itemTemplate' => 'Элемент меню',
-            // 'endTemplate' => 'Конец меню',
             'items' => 'Ссылки',
             'appearance' => 'Внешний вид пунктов меню верхнего уровня'
         ];
@@ -47,26 +37,6 @@ class DropdownMenuWidgetModel extends DynamicBlockModel
         ];
     }
 
-    public function beforeSave()
-    {
-        // $search = $replace = [];
-        // foreach (self::templateVars() as $tv => $conf) {
-        //     $search[] = '{'.$conf[0].'}';
-        //     $replace[] = '{*'.$tv.'*}';
-        // }
-        // $this->itemTemplate = str_replace($search, $replace, $this->itemTemplate);
-    }
-
-    public function afterLoadConfig()
-    {
-        // $search = $replace = [];
-        // foreach (self::templateVars() as $tv => $conf) {
-        //     $search[] = '{*'.$tv.'*}';
-        //     $replace[] = '{'.$conf[0].'}';
-        // }
-        // $this->itemTemplate = str_replace($search, $replace, $this->itemTemplate);
-    }
-
     public function load($data, $formName = null)
     {
         if (parent::load($data, $formName)) {
@@ -79,7 +49,7 @@ class DropdownMenuWidgetModel extends DynamicBlockModel
                 elseif (intval($data['parent'][$i]) != 0) {
                     $id = intval($data['parent'][$i]);
                     $this->items[$id]['items'][] = ['label' => $data['title'][$i], 'url' => $data['url'][$i]];
-                    $this->items[$id]['url'] = '#';
+//                    $this->items[$id]['url'] = '#';
                 }
             }
             Yii::trace(VarDumper::dumpAsString($this->items));

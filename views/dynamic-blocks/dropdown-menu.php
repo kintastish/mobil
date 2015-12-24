@@ -8,7 +8,43 @@ use yii\widgets\ActiveForm;
 use app\widgets\bootstrap\Collapse;
 use yii\bootstrap\Modal;
 ?>
-
+<?php
+$buttons = 
+    '<a href="#" class="btn btn-sm" data-op="up" title="Передвинуть вверх">'
+        .'<i class="glyphicon glyphicon-arrow-up text-primary"></i>'
+    .'</a>'
+    .'<a href="#" class="btn btn-sm" data-op="dn" title="Передвинуть вниз">'
+        .'<i class="glyphicon glyphicon-arrow-down text-primary"></i>'
+    .'</a>'
+    .'<a href="#" class="btn btn-sm" data-op="del" title="Удалить">'
+        .'<i class="glyphicon glyphicon-remove text-warning"></i>'
+    .'</a>';
+$menu_item_tpl =
+    '<div class="row">'
+        .'<div class="col-md-8">{title} '
+            .'<a href="#w0" class="add-link-btn" title="Добавить пункт в подменю" data-toggle="modal" data-menulevel="2">'
+                .'<i class="glyphicon glyphicon-plus-sign text-success"></i>'
+            .'</a>'
+            .'<input type="hidden" name="title[]" value="{title}">'
+            .'<input type="hidden" name="url[]" value="{url}">'
+            .'<input type="hidden" name="id[]" value="{id}">'
+            .'<input type="hidden" name="parent[]" value="0">'
+        .'</div>'
+        .'<div class="col-md-4">'.$buttons.'</div>'
+        .'<div class="submenu-items">{submenu}</div>'
+    .'</div>';
+$submenu_item_tpl = 
+    '<div class="row">'
+        .'<div class="col-md-7 col-md-offset-1">'
+            .'{title}'
+            .'<input type="hidden" name="title[]" value="{title}">'
+            .'<input type="hidden" name="url[]" value="{url}">'
+            .'<input type="hidden" name="id[]" value="0">'
+            .'<input type="hidden" name="parent[]" value="{id}">'
+        .'</div>'
+        .'<div class="col-md-4">'.$buttons.'</div>'
+    .'</div>';
+?>
 <div class="dynblock-menu">
     <?php echo Html::beginForm(); ?>
     
@@ -49,8 +85,20 @@ use yii\bootstrap\Modal;
                         <div class="panel-body">
                             <div id="menu-items">
                             <?php
-                            foreach ($model->items as $ind => $v) {
-                                //echo str_replace('{url}', $v['url'], str_replace('{title}', $v['title'], $menu_item_tpl));
+                            $lastItemId = 0;
+                            foreach ($model->items as $it) {
+                                $submenu = '';
+                                $lastItemId++;
+                                if (isset($it['items'])) {
+                                    foreach ($it['items'] as $sub) {
+                                        $search  = ['{url}', '{title}', '{id}'];
+                                        $replace = [$sub['url'], $sub['label'], $lastItemId];
+                                        $submenu .= str_replace($search, $replace, $submenu_item_tpl);
+                                    }
+                                }
+                                $search  = ['{url}', '{title}', '{id}', '{submenu}'];
+                                $replace = [$it['url'], $it['label'], $lastItemId, $submenu];
+                                echo str_replace($search, $replace, $menu_item_tpl);
                             }
                             ?>
                             </div>
@@ -99,46 +147,11 @@ Modal::begin([
 <?php Modal::end(); ?>
 
 <?php 
-$buttons = 
-    '<a href="#" class="btn btn-sm" data-op="up" title="Передвинуть вверх">'
-        .'<i class="glyphicon glyphicon-arrow-up text-primary"></i>'
-    .'</a>'
-    .'<a href="#" class="btn btn-sm" data-op="dn" title="Передвинуть вниз">'
-        .'<i class="glyphicon glyphicon-arrow-down text-primary"></i>'
-    .'</a>'
-    .'<a href="#" class="btn btn-sm" data-op="del" title="Удалить">'
-        .'<i class="glyphicon glyphicon-remove text-warning"></i>'
-    .'</a>';
-$menu_item_tpl =
-    '<div class="row">'
-        .'<div class="col-md-8">{title} '
-            .'<a href="#w0" class="add-link-btn" title="Добавить пункт в подменю" data-toggle="modal" data-menulevel="2">'
-                .'<i class="glyphicon glyphicon-plus-sign text-success"></i>'
-            .'</a>'
-            .'<input type="hidden" name="title[]" value="{title}">'
-            .'<input type="hidden" name="url[]" value="{url}">'
-            .'<input type="hidden" name="id[]" value="{id}">'
-            .'<input type="hidden" name="parent[]" value="0">'
-        .'</div>'
-        .'<div class="col-md-4">'.$buttons.'</div>'
-        .'<div class="submenu-items"></div>'
-    .'</div>';
-$submenu_item_tpl = 
-    '<div class="row">'
-        .'<div class="col-md-7 col-md-offset-1">'
-            .'{title}'
-            .'<input type="hidden" name="title[]" value="{title}">'
-            .'<input type="hidden" name="url[]" value="{url}">'
-            .'<input type="hidden" name="id[]" value="0">'
-            .'<input type="hidden" name="parent[]" value="{id}">'
-        .'</div>'
-        .'<div class="col-md-4">'.$buttons.'</div>'
-    .'</div>';
 
 $linkExplorer = Url::to(['explore/expand']);
 $jsLinks = <<<jsLinks
 var menuInsertionPoint;
-var lastItemId = 0;
+var lastItemId = $lastItemId;
 $('#w0').on('show.bs.modal', function (e) {
     var menulevel = $(e.relatedTarget).data('menulevel');
     if (menulevel == "1") {
@@ -189,7 +202,7 @@ $('#modal-save').on('click', function(ev){
     }
     var title = $('#link-title').val();
     var url = $('#link-url').val();
-    var row = $(tpl.replace(/{title}/g, title).replace('{url}', url).replace('{id}', id));
+    var row = $(tpl.replace(/{title}/g, title).replace('{url}', url).replace('{id}', id).replace('{submenu}', ''));
     $(menuInsertionPoint).append(row);
 })
 
