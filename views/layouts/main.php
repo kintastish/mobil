@@ -54,6 +54,15 @@ AppAsset::register($this);
         <nav>
             <div class="container">{*dropdownmenu*}</div>
         </nav>
+                <div class="container">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <?= $content ?>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer">
