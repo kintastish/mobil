@@ -9,16 +9,22 @@ class CarouselWidgetModel extends DynamicBlockModel
     public $album;
     public $controls;
     public $interval;
-    public $headerTemplate;
-    public $showHeader;
+    //public $headerTemplate;
+    public $slidesToShow;
+    public $slidesToScroll;
+    public $variableWidth;
+    //public $showHeader;
 
     public function loadDefaults()
     {
         $this->album = null;
         $this->controls = true;
         $this->interval = 3;
-        $this->headerTemplate = '<h4>{*title*}</h4>';
-        $this->showHeader = true;
+        //$this->headerTemplate = '<h4>{*title*}</h4>';
+        $this->slidesToShow = 3;
+        $this->slidesToScroll = 1;
+        $this->variableWidth = true;
+        //$this->showHeader = true;
     }
 
 
@@ -28,8 +34,11 @@ class CarouselWidgetModel extends DynamicBlockModel
             'album' => 'Альбом, изображения которого будут использованы для слайд-шоу',
             'controls' => 'Отображать стрелки "вперед-назад"',
             'interval' => 'Интервал между сменой изображений (секунды)',
-            'headerTemplate' => 'Шаблон заголовка',
-            'showHeader' => 'Показывать название изображения'
+            //'headerTemplate' => 'Шаблон заголовка',
+            'slidesToShow' => 'Количество выводимых изображений',
+            'slidesToScroll' => 'Число прокручиваемых изображений',
+            'variableWidth' => 'Разная ширина изображений',
+            //'showHeader' => 'Показывать название изображения'
         ];
     }
 
@@ -37,9 +46,9 @@ class CarouselWidgetModel extends DynamicBlockModel
     /* возвращает массив с именами переменных для шаблона*/
     public static function templateVars()
     {
-        return [
-            'title' => ['Название', 'Название изображения'],
-        ];
+        // return [
+        //     'title' => ['Название', 'Название изображения'],
+        // ];
     }
 
     public function getAlbumList()
@@ -59,22 +68,22 @@ class CarouselWidgetModel extends DynamicBlockModel
 
     public function beforeSave()
     {
-        $search = $replace = [];
-        foreach (self::templateVars() as $tv => $conf) {
-            $search[] = '{'.$conf[0].'}';
-            $replace[] = '{*'.$tv.'*}';
-        }
-        $this->headerTemplate = str_replace($search, $replace, $this->headerTemplate);
+        // $search = $replace = [];
+        // foreach (self::templateVars() as $tv => $conf) {
+        //     $search[] = '{'.$conf[0].'}';
+        //     $replace[] = '{*'.$tv.'*}';
+        // }
+        //$this->headerTemplate = str_replace($search, $replace, $this->headerTemplate);
     }
 
     public function afterLoadConfig()
     {
-        $search = $replace = [];
-        foreach (self::templateVars() as $tv => $conf) {
-            $search[] = '{*'.$tv.'*}';
-            $replace[] = '{'.$conf[0].'}';
-        }
-        $this->headerTemplate = str_replace($search, $replace, $this->headerTemplate);
+        // $search = $replace = [];
+        // foreach (self::templateVars() as $tv => $conf) {
+        //     $search[] = '{*'.$tv.'*}';
+        //     $replace[] = '{'.$conf[0].'}';
+        // }
+        //$this->headerTemplate = str_replace($search, $replace, $this->headerTemplate);
     }
 }
 

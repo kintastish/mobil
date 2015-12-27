@@ -13,9 +13,12 @@ use app\widgets\bootstrap\Collapse;
     <?php $this->beginBlock('panel1'); ?>
     <?php echo $form->field($model, 'album')->dropDownList($model->getAlbumList()); ?>
     <?php echo $form->field($model, 'interval')->textInput(); ?>
+    <?php echo $form->field($model, 'slidesToShow')->textInput(); ?>
+    <?php echo $form->field($model, 'slidesToScroll')->textInput(); ?>
     <?php echo $form->field($model, 'controls')->checkbox(); ?>
-    <?php echo $form->field($model, 'showHeader')->checkbox()->hint('Если этот флажок сброшен, шаблон заголовка использоваться не будет.'); ?>
-    <?php echo $form->field($model, 'headerTemplate')->textInput()->hint('<b>{Название}</b> - название изображения в альбоме'); ?>
+    <?php echo $form->field($model, 'variableWidth')->checkbox(); ?>
+    <?php// echo $form->field($model, 'showHeader')->checkbox()->hint('Если этот флажок сброшен, шаблон заголовка использоваться не будет.'); ?>
+    <?php //echo $form->field($model, 'headerTemplate')->textInput()->hint('<b>{Название}</b> - название изображения в альбоме'); ?>
     <?php $this->endBlock(); ?>
     <?php 
     echo Collapse::widget([
